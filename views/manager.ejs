@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <script src="/javascripts/jquery-1.11.3.min.js"></script>
+	<style>
+                body {
+                                height: 100%;
+                                margin: 0;
+                               	padding: 0;
+                     }
+              #Title { margin-top : 70px;
+                        font-size: 70px;
+                        font-weight: bold;
+			text-align: center}
+
+
+	.func {
+	-moz-box-shadow: 3px 4px 0px 0px #8a2a21;
+	-webkit-box-shadow: 3px 4px 0px 0px #8a2a21;
+	box-shadow: 3px 4px 0px 0px #8a2a21;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #c62d1f), color-stop(1, #f24437));
+	background:-moz-linear-gradient(top, #c62d1f 5%, #f24437 100%);
+	background:-webkit-linear-gradient(top, #c62d1f 5%, #f24437 100%);
+	background:-o-linear-gradient(top, #c62d1f 5%, #f24437 100%);
+	background:-ms-linear-gradient(top, #c62d1f 5%, #f24437 100%);
+	background:linear-gradient(to bottom, #c62d1f 5%, #f24437 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#c62d1f', endColorstr='#f24437',GradientType=0);
+	background-color:#c62d1f;
+	-moz-border-radius:18px;
+	-webkit-border-radius:18px;
+	border-radius:18px;
+	border:1px solid #d02718;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:17px;
+	padding:7px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #810e05;
+}
+.myButton:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #f24437), color-stop(1, #c62d1f));
+	background:-moz-linear-gradient(top, #f24437 5%, #c62d1f 100%);
+	background:-webkit-linear-gradient(top, #f24437 5%, #c62d1f 100%);
+	background:-o-linear-gradient(top, #f24437 5%, #c62d1f 100%);
+	background:-ms-linear-gradient(top, #f24437 5%, #c62d1f 100%);
+	background:linear-gradient(to bottom, #f24437 5%, #c62d1f 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f24437', endColorstr='#c62d1f',GradientType=0);
+	background-color:#f24437;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+
+	</style>
+</head>
+<body>
+	
+   <script>
+     $(function(){
+           $(".func").click(
+                function(){
+                    var selected = $(this).val();
+		    var result ;
+		    alert(selected);
+		    if(selected=='start')result = confirm('사물함 신청을 시작하시겠습니까?');
+		    if(selected=='end') result = confirm('사물함 신청을 끝내겠습니까?');
+		    if(selected=='list') result=1;
+		    if(selected=='stuDel'||selected=='relDel'){ 
+				alert('삭제된 데이터는 다시 복구할 수 없습니다.');
+				alert('시간은 되될릴 수 없습니다.');
+		    }
+		    if(selected=='stuDel') result = confirm('학생 정보를 모두 삭제하시겠습니까?');
+		    if(selected=='relDel') result = confirm('신청 정보를 모두 삭제 하시겠습니까?');
+
+                    if(result!=0) {  $('#FUNC').submit(); }
+                    else return false;
+                });
+        });
+
+
+   </script>
+   <%
+	if(sta=='list'){
+	var mss = message;
+	var relInfo=rel_info;
+	}
+	
+	else var mss = message;
+	if(sta=='get'||sta=='start'||sta=='end') var str=string;
+   %>
+ 
+   
+<form  action="/manager" method="post" id="FUNC">
+  <table id="layout" >
+	<tr><h1 id='Title'>관리자페이지</h1></tr>
+	<div id="buttonBox">
+         <td style:"text-align=center"> <tr><input type="submit" class='func' name="a"  value="start"/></tr>
+	  <tr><input type="submit" class='func' name="a"  value="end"/></tr>
+	  <tr><input type="submit" class='func' name="a" value="list"/></tr>
+	  <tr><input type="submit" class='func' name="a" value="stuDel"/></tr>
+	  <tr><input type="submit" class='func' name="a"  value="relDel"/></tr></td>
+	<div>
+   </table>
+</form>
+   <script>
+        alert('<%=mss%>');
+        if('<%=sta%>'=='get'||'<%=sta%>'=='start'||'<%=sta%>'=='end') $('body').append('<h2><%=str%></h2>');
+   </script>
+
+   <%
+	if(sta=='list'&& relInfo.length!=0)
+	{
+   %>
+		   
+   <table>
+        <tr><h3>1학년</h3></tr>
+	<tr><div id="1list"></div></tr>
+	<tr><h3>2학년</h2></tr>
+        <tr><div id='2list'></div></tr>
+	<tr><h3>3학년</h3></tr>
+        <tr><div id='3list'></div></tr>
+	<tr><h3>4학년</h3></tr>
+        <tr><div id='4list'></div></tr>
+   </table>
+   <%
+	for(var i=0; i<relInfo.length; i++)
+	{
+		var grade = relInfo[i].S_Grade;
+   %>
+	<script>
+		var txt ='<p><%=relInfo[i].S_Name%>&#09 <%=relInfo[i].S_Id%>&#09<%=relInfo[i].CabinetNo%></p>';
+		$('#<%=grade%>list').append(txt);
+	
+	</script>
+   <%
+	}
+   %>
+<%}%>
+</body>
+
+</html>
+
