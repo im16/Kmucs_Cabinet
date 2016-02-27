@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">  
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
 	<script src="/javascripts/jquery-1.11.3.min.js"></script>
 </script>
 <style>
@@ -149,23 +149,27 @@
 			<script>
 
 			$(function(){
-				$(".btn btn-success").click(
+				$('[name= cabinet]').click(
 					function(){
-						var selected = $(this).val();
-						var result= confirm(selected+" 신청하시겠습니까?");
 
-						if(result)	  $("#APPLY").submit();
-						else return false;
-					}
-				);
-				$(".btn btn-danger").click(
-					function(){
-						alert("이미 신청된 사물함입니다.");
-						return false;
-					}
-				);
+						if($(this).hasClass("btn btn-success"))
+						{ var selected = $(this).val();
+							var result= confirm(selected+" 신청하시겠습니까?");
+							$('[name= apply_cabinet]').val(selected);
 
-				});
+							if(result)	  $("#APPLY").submit();
+							else return false;
+						}
+						else {
+							alert("이미 신청된 사물함입니다.");
+							return false;
+						}
+
+
+
+
+						});
+					});
 
 
 			</script>
@@ -206,12 +210,20 @@
 
 	</script>
 
+	<form id="APPLY" action="/apply" method="post"/>
+  <input type='hidden' name='flag' value='0'/> <!--flag 0: 변경 1: 신청 -->
+  <input type='hidden' name='id'  value='0'/>
+  <input type='hidden' name='name' value='0'/>
+  <input type='hidden' name='grade' value='0'/>
+  <input type='hidden' name='cabinetOld' value='0'/>
+	<input type='hidden' name='apply_cabinet' value='0' />
+
 	<section>
 
 		<div style="display:none" id="dialog1">
 			<br/><br/>
 		 <table border="2" style="border-collapse:collapse; border-style:none; margin-left: auto; margin-right: auto;">
-			 <form action="/apply" method="post">
+
 			 <tr>
 				 <td rowspan="1" colspan="1" class="slash" style="border:1px solid;border-width: 0px 0px 0px 0px"> </td>
 				<td rowspan="1" colspan="19"  style="font-size:20px; text-align:center; solid;border-width:2px 0px 0px 0px">윗면</td>
@@ -220,118 +232,118 @@
 
       <tr>
 
-       <td><input type="submit" name="cabinet" id="C1" value="C 1"/></td>
-       <td><input type="submit" name="cabinet" id="C2" value="C 2"/></td>
-       <td><input type="submit" name="cabinet" id="C11" value="C11"/></td>
-       <td><input type="submit" name="cabinet" id="C12" value="C12"/></td>
-       <td><input type="submit" name="cabinet" id="C21" value="C21"/></td>
-       <td><input type="submit" name="cabinet" id="C22" value="C22"/></td>
-       <td><input type="submit" name="cabinet" id="C31" value="C31"/></td>
-       <td><input type="submit" name="cabinet" id="C32" value="C32"/></td>
-       <td><input type="submit" name="cabinet" id="C41" value="C41"/></td>
-       <td><input type="submit" name="cabinet" id="C42" value="C42"/></td>
-       <td><input type="submit" name="cabinet" id="C51" value="C51"/></td>
-       <td><input type="submit" name="cabinet" id="C52" value="C52"/></td>
-       <td><input type="submit" name="cabinet" id="C61" value="C61"/></td>
-       <td><input type="submit" name="cabinet" id="C62" value="C62"/></td>
-       <td><input type="submit" name="cabinet" id="C71" value="C71"/></td>
-       <td><input type="submit" name="cabinet" id="C72" value="C72"/></td>
-       <td><input type="submit" name="cabinet" id="C81" value="C81"/></td>
-       <td><input type="submit" name="cabinet" id="C82" value="C82"/></td>
-       <td><input type="submit" name="cabinet" id="C91" value="C91"/></td>
-       <td><input type="submit" name="cabinet" id="C92" value="C 92"/></td>
+       <td><input type="button" name="cabinet" id="C1" value="C 1"/></td>
+       <td><input type="button" name="cabinet" id="C2" value="C 2"/></td>
+       <td><input type="button" name="cabinet" id="C11" value="C11"/></td>
+       <td><input type="button" name="cabinet" id="C12" value="C12"/></td>
+       <td><input type="button" name="cabinet" id="C21" value="C21"/></td>
+       <td><input type="button" name="cabinet" id="C22" value="C22"/></td>
+       <td><input type="button" name="cabinet" id="C31" value="C31"/></td>
+       <td><input type="button" name="cabinet" id="C32" value="C32"/></td>
+       <td><input type="button" name="cabinet" id="C41" value="C41"/></td>
+       <td><input type="button" name="cabinet" id="C42" value="C42"/></td>
+       <td><input type="button" name="cabinet" id="C51" value="C51"/></td>
+       <td><input type="button" name="cabinet" id="C52" value="C52"/></td>
+       <td><input type="button" name="cabinet" id="C61" value="C61"/></td>
+       <td><input type="button" name="cabinet" id="C62" value="C62"/></td>
+       <td><input type="button" name="cabinet" id="C71" value="C71"/></td>
+       <td><input type="button" name="cabinet" id="C72" value="C72"/></td>
+       <td><input type="button" name="cabinet" id="C81" value="C81"/></td>
+       <td><input type="button" name="cabinet" id="C82" value="C82"/></td>
+       <td><input type="button" name="cabinet" id="C91" value="C91"/></td>
+       <td><input type="button" name="cabinet" id="C92" value="C 92"/></td>
        <td rowspan="4" colspan="3" style="font-size:20px; text-align:center; border:1px solid;border-width:0px 2px 0px 2px">옆면</td>
        </tr>
 
        <tr>
-         <td><input type="submit" name="cabinet" id="C3" value="C 3"/></td>
-         <td><input type="submit" name="cabinet" id="C4" value="C 4"/></td>
-         <td><input type="submit" name="cabinet" id="C13" value="C13"/></td>
-         <td><input type="submit" name="cabinet" id="C14" value="C14"/></td>
-         <td><input type="submit" name="cabinet" id="C23" value="C23"/></td>
-         <td><input type="submit" name="cabinet" id="C24" value="C24"/></td>
-         <td><input type="submit" name="cabinet" id="C33" value="C33"/></td>
-         <td><input type="submit" name="cabinet" id="C34" value="C34"/></td>
-         <td><input type="submit" name="cabinet" id="C43" value="C43"/></td>
-         <td><input type="submit" name="cabinet" id="C44" value="C44"/></td>
-         <td><input type="submit" name="cabinet" id="C53" value="C53"/></td>
-         <td><input type="submit" name="cabinet" id="C54" value="C54"/></td>
-         <td><input type="submit" name="cabinet" id="C63" value="C63"/></td>
-         <td><input type="submit" name="cabinet" id="C64" value="C64"/></td>
-         <td><input type="submit" name="cabinet" id="C73" value="C73"/></td>
-         <td><input type="submit" name="cabinet" id="C74" value="C74"/></td>
-         <td><input type="submit" name="cabinet" id="C83" value="C83"/></td>
-         <td><input type="submit" name="cabinet" id="C84" value="C84"/></td>
-         <td><input type="submit" name="cabinet" id="C93" value="C93"/></td>
-         <td><input type="submit" name="cabinet" id="C94" value="C 94"/></td>
+         <td><input type="button" name="cabinet" id="C3" value="C 3"/></td>
+         <td><input type="button" name="cabinet" id="C4" value="C 4"/></td>
+         <td><input type="button" name="cabinet" id="C13" value="C13"/></td>
+         <td><input type="button" name="cabinet" id="C14" value="C14"/></td>
+         <td><input type="button" name="cabinet" id="C23" value="C23"/></td>
+         <td><input type="button" name="cabinet" id="C24" value="C24"/></td>
+         <td><input type="button" name="cabinet" id="C33" value="C33"/></td>
+         <td><input type="button" name="cabinet" id="C34" value="C34"/></td>
+         <td><input type="button" name="cabinet" id="C43" value="C43"/></td>
+         <td><input type="button" name="cabinet" id="C44" value="C44"/></td>
+         <td><input type="button" name="cabinet" id="C53" value="C53"/></td>
+         <td><input type="button" name="cabinet" id="C54" value="C54"/></td>
+         <td><input type="button" name="cabinet" id="C63" value="C63"/></td>
+         <td><input type="button" name="cabinet" id="C64" value="C64"/></td>
+         <td><input type="button" name="cabinet" id="C73" value="C73"/></td>
+         <td><input type="button" name="cabinet" id="C74" value="C74"/></td>
+         <td><input type="button" name="cabinet" id="C83" value="C83"/></td>
+         <td><input type="button" name="cabinet" id="C84" value="C84"/></td>
+         <td><input type="button" name="cabinet" id="C93" value="C93"/></td>
+         <td><input type="button" name="cabinet" id="C94" value="C 94"/></td>
       </tr>
 
        <tr>
-         <td><input type="submit" name="cabinet" id="C5" value="C 5"/></td>
-         <td><input type="submit" name="cabinet" id="C6" value="C 6"/></td>
-         <td><input type="submit" name="cabinet" id="C15" value="C15"/></td>
-         <td><input type="submit" name="cabinet" id="C16" value="C16"/></td>
-         <td><input type="submit" name="cabinet" id="C25" value="C25"/></td>
-         <td><input type="submit" name="cabinet" id="C26" value="C26"/></td>
-         <td><input type="submit" name="cabinet" id="C35" value="C35"/></td>
-         <td><input type="submit" name="cabinet" id="C36" value="C36"/></td>
-         <td><input type="submit" name="cabinet" id="C45" value="C45"/></td>
-         <td><input type="submit" name="cabinet" id="C46" value="C46"/></td>
-         <td><input type="submit" name="cabinet" id="C55" value="C55"/></td>
-         <td><input type="submit" name="cabinet" id="C56" value="C56"/></td>
-         <td><input type="submit" name="cabinet" id="C65" value="C65"/></td>
-         <td><input type="submit" name="cabinet" id="C66" value="C66"/></td>
-         <td><input type="submit" name="cabinet" id="C75" value="C75"/></td>
-         <td><input type="submit" name="cabinet" id="C76" value="C76"/></td>
-         <td><input type="submit" name="cabinet" id="C85" value="C85"/></td>
-         <td><input type="submit" name="cabinet" id="C86" value="C86"/></td>
-         <td><input type="submit" name="cabinet" id="C95" value="C95"/></td>
-         <td><input type="submit" name="cabinet" id="C96" value="C 96"/></td>
+         <td><input type="button" name="cabinet" id="C5" value="C 5"/></td>
+         <td><input type="button" name="cabinet" id="C6" value="C 6"/></td>
+         <td><input type="button" name="cabinet" id="C15" value="C15"/></td>
+         <td><input type="button" name="cabinet" id="C16" value="C16"/></td>
+         <td><input type="button" name="cabinet" id="C25" value="C25"/></td>
+         <td><input type="button" name="cabinet" id="C26" value="C26"/></td>
+         <td><input type="button" name="cabinet" id="C35" value="C35"/></td>
+         <td><input type="button" name="cabinet" id="C36" value="C36"/></td>
+         <td><input type="button" name="cabinet" id="C45" value="C45"/></td>
+         <td><input type="button" name="cabinet" id="C46" value="C46"/></td>
+         <td><input type="button" name="cabinet" id="C55" value="C55"/></td>
+         <td><input type="button" name="cabinet" id="C56" value="C56"/></td>
+         <td><input type="button" name="cabinet" id="C65" value="C65"/></td>
+         <td><input type="button" name="cabinet" id="C66" value="C66"/></td>
+         <td><input type="button" name="cabinet" id="C75" value="C75"/></td>
+         <td><input type="button" name="cabinet" id="C76" value="C76"/></td>
+         <td><input type="button" name="cabinet" id="C85" value="C85"/></td>
+         <td><input type="button" name="cabinet" id="C86" value="C86"/></td>
+         <td><input type="button" name="cabinet" id="C95" value="C95"/></td>
+         <td><input type="button" name="cabinet" id="C96" value="C 96"/></td>
          </tr>
      <tr>
-       <td><input type="submit" name="cabinet" id="C7" value="C 7"/></td>
-       <td><input type="submit" name="cabinet" id="C8" value="C 8"/></td>
-       <td><input type="submit" name="cabinet" id="C17" value="C17"/></td>
-       <td><input type="submit" name="cabinet" id="C18" value="C18"/></td>
-       <td><input type="submit" name="cabinet" id="C27" value="C27"/></td>
-       <td><input type="submit" name="cabinet" id="C28" value="C28"/></td>
-       <td><input type="submit" name="cabinet" id="C37" value="C37"/></td>
-       <td><input type="submit" name="cabinet" id="C38" value="C38"/></td>
-       <td><input type="submit" name="cabinet" id="C47" value="C47"/></td>
-       <td><input type="submit" name="cabinet" id="C48" value="C48"/></td>
-       <td><input type="submit" name="cabinet" id="C57" value="C57"/></td>
-       <td><input type="submit" name="cabinet" id="C58" value="C58"/></td>
-       <td><input type="submit" name="cabinet" id="C67" value="C67"/></td>
-       <td><input type="submit" name="cabinet" id="C68" value="C68"/></td>
-       <td><input type="submit" name="cabinet" id="C77" value="C77"/></td>
-       <td><input type="submit" name="cabinet" id="C78" value="C78"/></td>
-       <td><input type="submit" name="cabinet" id="C87" value="C87"/></td>
-       <td><input type="submit" name="cabinet" id="C88" value="C88"/></td>
-       <td><input type="submit" name="cabinet" id="C97" value="C97"/></td>
-       <td><input type="submit" name="cabinet" id="C98" value="C 98"/></td>
+       <td><input type="button" name="cabinet" id="C7" value="C 7"/></td>
+       <td><input type="button" name="cabinet" id="C8" value="C 8"/></td>
+       <td><input type="button" name="cabinet" id="C17" value="C17"/></td>
+       <td><input type="button" name="cabinet" id="C18" value="C18"/></td>
+       <td><input type="button" name="cabinet" id="C27" value="C27"/></td>
+       <td><input type="button" name="cabinet" id="C28" value="C28"/></td>
+       <td><input type="button" name="cabinet" id="C37" value="C37"/></td>
+       <td><input type="button" name="cabinet" id="C38" value="C38"/></td>
+       <td><input type="button" name="cabinet" id="C47" value="C47"/></td>
+       <td><input type="button" name="cabinet" id="C48" value="C48"/></td>
+       <td><input type="button" name="cabinet" id="C57" value="C57"/></td>
+       <td><input type="button" name="cabinet" id="C58" value="C58"/></td>
+       <td><input type="button" name="cabinet" id="C67" value="C67"/></td>
+       <td><input type="button" name="cabinet" id="C68" value="C68"/></td>
+       <td><input type="button" name="cabinet" id="C77" value="C77"/></td>
+       <td><input type="button" name="cabinet" id="C78" value="C78"/></td>
+       <td><input type="button" name="cabinet" id="C87" value="C87"/></td>
+       <td><input type="button" name="cabinet" id="C88" value="C88"/></td>
+       <td><input type="button" name="cabinet" id="C97" value="C97"/></td>
+       <td><input type="button" name="cabinet" id="C98" value="C 98"/></td>
 
    </tr>
    <tr>
-     <td><input type="submit" name="cabinet" id="C9" value="C 9"/></td>
-     <td><input type="submit" name="cabinet" id="C10" value="C10"/></td>
-     <td><input type="submit" name="cabinet" id="C19" value="C19"/></td>
-     <td><input type="submit" name="cabinet" id="C20" value="C20"/></td>
-     <td><input type="submit" name="cabinet" id="C29" value="C29"/></td>
-     <td><input type="submit" name="cabinet" id="C30" value="C30"/></td>
-     <td><input type="submit" name="cabinet" id="C39" value="C39"/></td>
-     <td><input type="submit" name="cabinet" id="C40" value="C40"/></td>
-     <td><input type="submit" name="cabinet" id="C49" value="C49"/></td>
-     <td><input type="submit" name="cabinet" id="C50" value="C50"/></td>
-     <td><input type="submit" name="cabinet" id="C59" value="C59"/></td>
-     <td><input type="submit" name="cabinet" id="C60" value="C60"/></td>
-     <td><input type="submit" name="cabinet" id="C69" value="C69"/></td>
-     <td><input type="submit" name="cabinet" id="C70" value="C70"/></td>
-     <td><input type="submit" name="cabinet" id="C79" value="C79"/></td>
-     <td><input type="submit" name="cabinet" id="C80" value="C80"/></td>
-     <td><input type="submit" name="cabinet" id="C89" value="C89"/></td>
-     <td><input type="submit" name="cabinet" id="C90" value="C90"/></td>
-     <td><input type="submit" name="cabinet" id="C99" value="C99"/></td>
-     <td><input type="submit" name="cabinet" id="C100" value="C100"/></td>
+     <td><input type="button" name="cabinet" id="C9" value="C 9"/></td>
+     <td><input type="button" name="cabinet" id="C10" value="C10"/></td>
+     <td><input type="button" name="cabinet" id="C19" value="C19"/></td>
+     <td><input type="button" name="cabinet" id="C20" value="C20"/></td>
+     <td><input type="button" name="cabinet" id="C29" value="C29"/></td>
+     <td><input type="button" name="cabinet" id="C30" value="C30"/></td>
+     <td><input type="button" name="cabinet" id="C39" value="C39"/></td>
+     <td><input type="button" name="cabinet" id="C40" value="C40"/></td>
+     <td><input type="button" name="cabinet" id="C49" value="C49"/></td>
+     <td><input type="button" name="cabinet" id="C50" value="C50"/></td>
+     <td><input type="button" name="cabinet" id="C59" value="C59"/></td>
+     <td><input type="button" name="cabinet" id="C60" value="C60"/></td>
+     <td><input type="button" name="cabinet" id="C69" value="C69"/></td>
+     <td><input type="button" name="cabinet" id="C70" value="C70"/></td>
+     <td><input type="button" name="cabinet" id="C79" value="C79"/></td>
+     <td><input type="button" name="cabinet" id="C80" value="C80"/></td>
+     <td><input type="button" name="cabinet" id="C89" value="C89"/></td>
+     <td><input type="button" name="cabinet" id="C90" value="C90"/></td>
+     <td><input type="button" name="cabinet" id="C99" value="C99"/></td>
+     <td><input type="button" name="cabinet" id="C100" value="C100"/></td>
    <td rowspan="1" colspan="3" class="slash" style="border:1px solid;border-width:0px 0px 0px 1px"></td>
  </tr>
          <tr></tr>
@@ -342,7 +354,7 @@
 		<div id="dialog2" style="display:none">
 			<br/><br/><br/>
 		 <table border="2" style="border-collapse:collapse; border-style:none; margin-left: auto; margin-right: auto;">
-			 <form action="/apply" method="post">
+
 			 <tr>
 				<td rowspan="1" colspan="1" class="slash" style="border:1px solid;border-width: 0px 0px 0px 0px"> </td>
 			 <td rowspan="1" colspan="2"  style="font-size:20px; text-align:center; border:1px solid;border-width:2px 0px 0px 0px">윗면</td>
@@ -350,23 +362,23 @@
 		  </tr>
 
 			 <tr>
-			  <td><input type="submit" name="cabinet" id="A82" value="A82"/></td>
-			  <td><input type="submit" name="cabinet" id="A83" value="A83"/></td>
-			  <td><input type="submit" name="cabinet" id="A84" value="A84"/></td>
+			  <td><input type="button" name="cabinet" id="A82" value="A82"/></td>
+			  <td><input type="button" name="cabinet" id="A83" value="A83"/></td>
+			  <td><input type="button" name="cabinet" id="A84" value="A84"/></td>
 				<td rowspan="2" colspan="3" style="font-size:20px; text-align:center; border:1px solid;border-width:0px 2px 0px 2px">옆면</td>
 			 	</tr>
 
 			 	<tr>
-			 	<td><input type="submit" name="cabinet" id="A85" value="A85"/></td>
-				<td><input type="submit" name="cabinet" id="A86" value="A86"/></td>
-			 	<td><input type="submit" name="cabinet" id="A87" value="A87"/></td>
+			 	<td><input type="button" name="cabinet" id="A85" value="A85"/></td>
+				<td><input type="button" name="cabinet" id="A86" value="A86"/></td>
+			 	<td><input type="button" name="cabinet" id="A87" value="A87"/></td>
 
 			 </tr>
 
 			  <tr>
-			  <td><input type="submit" name="cabinet" id="A88" value="A88"/></td>
-				<td><input type="submit" name="cabinet" id="A89" value="A89"/></td>
-				<td><input type="submit" name="cabinet" id="A90" value="A90"/></td>
+			  <td><input type="button" name="cabinet" id="A88" value="A88"/></td>
+				<td><input type="button" name="cabinet" id="A89" value="A89"/></td>
+				<td><input type="button" name="cabinet" id="A90" value="A90"/></td>
 				<td rowspan="1" colspan="3" class="slash" style="border:1px solid;border-width:0px 0px 0px 1px"></td>
 				<tr>
 					<tr></tr>
