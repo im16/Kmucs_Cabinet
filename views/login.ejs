@@ -112,18 +112,7 @@
 
 
         </head>
-<body onkeydown='on_key_down()'>
-          <script>
-          function on_key_down() {
-	var keycode = event.keyCode;
-	if ( keycode == 8 // 백스페이스
-		|| keycode == 116 // F5
-	){
-  location.replace("/login");
-  event.returnValue = false; // 브라우저 기능 키 무효화
-   }
-}
-  </script>
+<body>
 
              <form id="LOGIN" action="/login" method="post">
 
