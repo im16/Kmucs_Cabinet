@@ -41,9 +41,14 @@
 
 
 </head>
-<body>
+<body onkeydown='on_key_down()'>
 	<h1 style="margin-left:35px;">1학년 사물함신청 페이지</h1>
 	<script>
+	function on_key_down() {
+		var keycode = event.keyCode;
+		if ( keycode == 8) //백스페이스
+		location.replace("/login");
+	}
 
 	$(function() {
 	    $("#link1").click(function(){
