@@ -98,14 +98,13 @@ router.get('/', function(req, res, next) {
     var applyFlag;
     var status=0;
     
-    console.log("확인"+studentID + " "+studentName+ " "+ studentGrade+" "+modify+" "+cabinet_old+" "+cabinet_apply+" ");
+   // console.log("확인"+studentID + " "+studentName+ " "+ studentGrade+" "+modify+" "+cabinet_old+" "+cabinet_apply+" ");
     
     pool.getConnection(function (err, connection) {
       
 	//신청가능한 시간인가      
       connection.query('SELECT * FROM StartFlag' ,function(err,rows){
         if(err) {throw err;}
-	console.log("flag는 "+rows[0].flag);        
 	if(rows.length!= 0) applyFlag=rows[0].flag;
 
       if(applyFlag==1){ //신청가능 시간이면
@@ -119,7 +118,7 @@ router.get('/', function(req, res, next) {
             var possible=rows[0].IsUse;
             
             
-            console.log("캐비넷번호: "+ cabinet_old+" 현재값은"+possible);
+        //    console.log("캐비넷번호: "+ cabinet_old+" 현재값은"+possible);
             
             var avail_use=1;
             
@@ -188,7 +187,7 @@ router.get('/', function(req, res, next) {
             {
               status=2; // 그 사이에 이미 신청했다. 다시신청하도록!
               var sendMessage="/apply?"+"id="+studentID+"&name="+studentName+"&grade="+studentGrade+"&status="+status;
-              console.log("here");
+         //     console.log("here");
               res.redirect(sendMessage);
             }
             
