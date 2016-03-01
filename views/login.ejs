@@ -78,6 +78,34 @@
         <script src="/javascripts/jquery-1.11.3.min.js"></script>
 
   <script>
+
+function enter()
+{
+     if(event.keyCode == 13)
+     {
+           if($("#studentID").val()==""){
+                       alert('학번을 입력하세요');
+                       return;
+                 }
+
+              else if ($("#sname").val()==""){
+
+                alert('이름을 입력하세요');
+
+                        return;
+              }
+                else if($("#pwd").val()==""){
+                alert('비밀번호를 입력하세요');
+                        return;
+                }
+
+
+
+          $("#LOGIN").submit();
+
+     }
+}
+
   $(function(){
 
   $("#CHECK").click(
@@ -135,9 +163,9 @@
 
 				  <input type="text" id="sname" name="sname" size="28" class="input" style="height:40px" placeholder=" 이름"/><br/>
 
-                                 <input type="password" id="pwd" name="pwd" size="28" class="input" style="height:40px" placeholder=" 비밀번호"/><br/>
+                                 <input type="password" id="pwd" name="pwd" size="28" class="input" style="height:40px" placeholder=" 비밀번호" onKeydown="enter()" /><br/>
                                 </div>
-                                <input type="button" id="CHECK" name="join" class="btn" value="로그인" />
+                                <input type="button" id="CHECK" name="join" class="btn" value="로그인" onKeydown="enter()" />
 
                               </div>
 
@@ -158,10 +186,10 @@
 
                                 <input type="text" id="sname" name="sname" size="28" class="input" style="height:40px" placeholder=" 이름"/><br/>
 
-                                <input type="password" id="pwd" name="pwd" size="28" class="input" style="height:40px" placeholder=" 비밀번호"/><br/>
+                                <input type="password" id="pwd" name="pwd" size="28" class="input" style="height:40px" placeholder=" 비밀번호" onKeydown="enter()"/><br/>
                                 </div>
 
-                                <input type="button" id="CHECK" name="join" class="btn" value="로그인" />
+                                <input type="button" id="CHECK" name="join" class="btn" value="로그인" onKeydown="enter()" />
 
                               </div>
 
