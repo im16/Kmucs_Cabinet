@@ -130,17 +130,21 @@ if(applyFlag=='1'){ //신청가능 시간이면
       if(possible<avail_use)
       {
         possible+=1;
+        console.log("if possible 에 들어온다.");
         connection.query('UPDATE cabinet_infos set IsUse= ? where CabinetNo=? ' ,[possible,cabinet_old],function(err,rows) {
           if (err) throw err;
 
         });
 
         status=3;  // 캐비넷 반환한다. (성공)
-
+console.log("캐비넷반환성공");
       }
 
       else
+      {
+        console.log("에러안에들어온다");
         status=4; // 에러
+      }
       });
 
     if(status==4) throw err;
@@ -161,7 +165,7 @@ if(applyFlag=='1'){ //신청가능 시간이면
     var possible=rows[0].IsUse;
 
 
-    console.log("캐비넷번호: "+ cabinet_apply+" 현재값은"+possible);
+    console.log("캐비넷번호11: "+ cabinet_apply+" 현재값은"+possible);
 
 
     if(possible>0)

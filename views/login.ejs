@@ -2,7 +2,7 @@
 <html>
         <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
- <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">      
+ <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
         <style type="text/css">
 
 
@@ -141,10 +141,10 @@
                       </form>
 
 
-            <%  }  else if(index=='false'){  %>
+            <%  }  else {%>
                          <script>
 
-                                alert('일치하는 학생정보가 없습니다.');
+                                alert('<%=index%>');
 
                         </script>
                         <form>
@@ -164,19 +164,9 @@
 
                         </form>
 
+             <%}
+              %>
 
-
-
-
-
-             <%}else
-              {%>
-                <script>
-                        alert("학생회비를 미납하셨습니다. 관리자에게 문의해주세요.");
-                </script>
-             <%
-               }
-             %>
 
 
 

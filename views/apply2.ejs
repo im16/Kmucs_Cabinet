@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-   <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-<script src="/javascripts/jquery-1.11.3.min.js"></script>
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+ <script src="/javascripts/jquery-1.11.3.min.js"></script>
 </script>
 <style>
 
 .ui-dialog-titlebar-close {
-  visibility: hidden;
+	visibility: hidden;
 }
 .slash {
-	 background-image: url(images/slash.png);
-	 background-size: 100% 100%;
-				}
+	background-image: url(images/slash.png);
+	background-size: 100% 100%;
+			 }
 .backslash {
-	 background-image: url(images/backslash.png);
-	 background-size: 100% 100%;
-				}
+	background-image: url(images/backslash.png);
+	background-size: 100% 100%;
+			 }
 
 .ui-dialog .ui-dialog-titlebar { padding: .5em .3em .3em 1em; background: #E0F2F7; }
 .ui-dialog .ui-dialog-buttonpane button  { text-align: center; width:100px; height: 35px; background: #E0F2F7;}
@@ -26,10 +26,6 @@
 </style>
 <meta charset="UTF-8">
 <title>2학년 사물함신청 페이지</title>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-<link rel="stylesheet" href="/resources/demos/style.css">
 <!-- 합쳐지고 최소화된 최신 CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
@@ -38,387 +34,394 @@
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" href="/resources/demos/style.css">
+
 
 
 </head>
 <body>
-	<h1 style="margin-left:35px;">2학년 사물함신청 페이지</h1>
-	<script>
+ <h1 style="margin-left:35px;">2학년 사물함신청 페이지</h1>
+ <script>
 
-	$(function() {
-	    $("#link1").click(function(){
+ $(function() {
+		 $("#link1").click(function(){
 
-				status = $("#dialog1").css("display");
- 			if (status == "none") {
-	 		$("#dialog1").css("display","");
- 		}
- 		else {
-	 	$("#dialog1").css("display","none");
- 	}
-	       $("#dialog1").dialog({
-					 		sPosition : "center",
-	            resizable: true,
-	            height: 350,
-	            width: 700,
+			 status = $("#dialog1").css("display");
+			 if (status == "none") {
+		 $("#dialog1").css("display","");
+		 }
+		 else {
+	 $("#dialog1").css("display","none");
+	 }
+				$("#dialog1").dialog({
+						 sPosition : "center",
+						 resizable: true,
+						 height: 350,
+						 width: 800,
 
-	            modal: true,
-							title :"2학년 사물함 신청",
-	            buttons: {
-	                "닫기": function () {
-	                    $(this).dialog("close");
-	                }
-	            },
+						 modal: true,
+						 title :"2학년 사물함 신청",
+						 buttons: {
+								 "닫기": function () {
+										 $(this).dialog("close");
+								 }
+						 },
 
-   						open: function(event, ui) { $(".ui-dialog-titlebar-close", ui.dialog | ui).hide(); }
+							 open: function(event, ui) { $(".ui-dialog-titlebar-close", ui.dialog | ui).hide(); }
 
-	});
-	    });
+ });
+		 });
 
-	  });
+	 });
 
-		$(function() {
-				$("#link2").click(function(){
-					status = $("#dialog2").css("display");
-				if (status == "none") {
-				$("#dialog2").css("display","");
-			}
-			else {
-			$("#dialog2").css("display","none");
-			}
-
-
-					 $("#dialog2").dialog({
-
-								resizable: false,
-								height: 450,
-								width: 850,
-								sPosition: 'center',
-								modal: true,
-								title :"2학년 사물함 신청",
-								buttons: {
-										"닫기": function () {
-												$(this).dialog("close");
-										}
-								},
-
-	   						open: function(event, ui) { $(".ui-dialog-titlebar-close", ui.dialog | ui).hide(); }
-
-		});
-				});
-
-			});
-	</script>
-
-	<%
-	var cabinetSize = cabinet_status.length;
-	for(var i =0; i<cabinetSize; i++)
-	{
-		var cabinetNumber = cabinet_status[i].번호;
-		var cabinetState = cabinet_status[i].사용;
-
-		if(cabinetState==0) {
-			%>
-			<script>
-
-			$(function(){
-
-				var tag = $('#<%=cabinetNumber%>');
-				tag.addClass('btn btn-danger');
-			}
-		);
-		</script>
-		<%	}
-		else{
-			%>
-			<script>
-			$(function(){
-				var tag = $('#<%=cabinetNumber%>');
-				tag.addClass('btn btn-success');
-			}
-		);
-
-		</script>
-		<% 	}
-		if(i==cabinetSize-1){
-			var grade = student_infos.grade;
-			var id = student_infos.id;
-			var name= student_infos.name;
-			var cabinet = student_infos.cabinet;
-			%>
-
-			<script>
-
-			$(function(){
-				$('[name= cabinet]').click(
-					function(){
-
-						if($(this).hasClass("btn btn-success"))
-						{ var selected = $(this).val();
-							var result= confirm(selected+" 신청하시겠습니까?");
-							$('[name= apply_cabinet]').val(selected);
-
-							if(result)	  $("#APPLY").submit();
-							else return false;
-						}
-						else {
-							alert("이미 신청된 사물함입니다.");
-							return false;
-						}
+	 $(function() {
+			 $("#link2").click(function(){
+				 status = $("#dialog2").css("display");
+			 if (status == "none") {
+			 $("#dialog2").css("display","");
+		 }
+		 else {
+		 $("#dialog2").css("display","none");
+		 }
 
 
+					$("#dialog2").dialog({
+
+							 resizable: false,
+							 height: 450,
+							 width: 900,
+							 sPosition: 'center',
+							 modal: true,
+							 title :"2학년 사물함 신청",
+							 buttons: {
+									 "닫기": function () {
+											 $(this).dialog("close");
+									 }
+							 },
+
+							 open: function(event, ui) { $(".ui-dialog-titlebar-close", ui.dialog | ui).hide(); }
+
+	 });
+			 });
+
+		 });
+ </script>
+
+ <%
+ var cabinetSize = cabinet_status.length;
+ for(var i =0; i<cabinetSize; i++)
+ {
+	 var cabinetNumber = cabinet_status[i].번호;
+	 var cabinetState = cabinet_status[i].사용;
+
+	 if(cabinetState==0) {
+		 %>
+		 <script>
+		 $(function(){
+			 var tag = $('#<%=cabinetNumber%>');
+			 tag.removeClass('');
+			 tag.addClass('btn btn-danger');
+		 }
+	 );
+	 </script>
+	 <%	}
+	 else{
+		 %>
+		 <script>
+		 $(function(){
+			 var tag = $('#<%=cabinetNumber%>');
+			 tag.removeClass('');
+			 tag.addClass('btn btn-success');
+		 }
+	 );
+
+	 </script>
+	 <% 	}
+	 if(i==cabinetSize-1){
+		 var grade = student_infos.grade;
+		 var id = student_infos.id;
+		 var name= student_infos.name;
+		 var cabinet = student_infos.cabinet;
+		 %>
+
+		 <script>
+
+		 $(function(){
+			 $('[name= cabinet]').click(
+				 function(){
+
+					 if($(this).hasClass("btn btn-success"))
+					 { var selected = $(this).val();
+						 var result= confirm(selected+" 신청하시겠습니까?");
+						 $('[name= apply_cabinet]').val(selected);
+
+						 if(result)	  $("#APPLY").submit();
+						 else return false;
+					 }
+					 else {
+						 alert("이미 신청된 사물함입니다.");
+						 return false;
+					 }
 
 
-						});
-					});
-
-			</script>
-			<%
-		}
-	}
-	%>
 
 
-	<script>
+					 });
+				 });
 
-	  $(function(){
 
-	$('[name=id]').val('<%=id%>');
-	$('[name= name]').val('<%=name%>');
-	$('[name= cabinetOld]').val('<%=cabinet%>');
-	$('[name= grade]').val('<%=grade%>');
-	if("<%=cabinet%>"=="false") $('flag').val('0'); //신규
-	else $('[name= flag]').val('1')  //변경
+		 </script>
+		 <%
+	 }
+ }
+ %>
 
-	$('#id').text('<%=id%>');
-	$('#grade').text('<%=grade%>');
-	$('#name').text('<%=name%>');
-	if("<%=cabinet%>"=="false") $('#cabinet').text('없음');
-	else $('#cabinet').text('<%=cabinet%>');
 
-	});
-	var status=<%=msg%>;
+ <script>
 
-	if(status=='0')
-	alert('로그인완료');
-	else if(status=='1')
-	alert('사물함신청완료');
-	else if(status=='5')
-	alert('접근가능 시간이 아닙니다.')
-	else
-	alert('이미 신청되었습니다.');
+	 $(function(){
 
-	</script>
+ $('[name=id]').val('<%=id%>');
+ $('[name= name]').val('<%=name%>');
+ $('[name= cabinetOld]').val('<%=cabinet%>');
+ $('[name= grade]').val('<%=grade%>');
+ if("<%=cabinet%>"=="false") $('flag').val('0'); //신규
+ else $('[name= flag]').val('1')  //변경
 
-	<form id="APPLY" action="/apply" method="post"/>
+ $('#id').text('<%=id%>');
+ $('#grade').text('<%=grade%>');
+ $('#name').text('<%=name%>');
+ if("<%=cabinet%>"=="false") $('#cabinet').text('없음');
+ else $('#cabinet').text('<%=cabinet%>');
+
+ });
+ var status=<%=msg%>;
+
+ if(status=='0')
+ alert('로그인완료');
+ else if(status=='1')
+ alert('사물함신청완료');
+ else if(status=='5')
+ alert('접근가능 시간이 아닙니다.')
+ else
+ alert('이미 신청되었습니다.');
+
+ </script>
+
+ <form id="APPLY" action="/apply" method="post"/>
 	<input type='hidden' name='flag' value='0'/> <!--flag 0: 변경 1: 신청 -->
 	<input type='hidden' name='id'  value='0'/>
 	<input type='hidden' name='name' value='0'/>
 	<input type='hidden' name='grade' value='0'/>
 	<input type='hidden' name='cabinetOld' value='0'/>
-	<input type='hidden' name='apply_cabinet' value='0' />
+ <input type='hidden' name='apply_cabinet' value='0' />
 
-	<section>
+ <section>
 
-		<div style="display:none" id="dialog1">
-			<br/><br/>
-      <table border="2" style="border-collapse:collapse; border-style:none; margin-left: auto; margin-right: auto;">
+<div style="display:none" id="dialog1">
+<br/><br/>
+		 <table border="2" style="border-collapse:collapse; border-style:none; margin-left: auto; margin-right: auto;">
 
- <tr>
- <td rowspan="1" colspan="1" class="slash" style="border:1px solid;border-width: 0px 0px 0px 0px"> </td>
- <td rowspan="1" colspan="11"  style="font-size:20px; text-align:center; solid;border-width:2px 0px 0px 0px">윗면</td>
- <td rowspan="1" colspan="1" class="slash" style="border:1px solid;border-width:2px 2px 0px 0px"> </td>
- </tr>
-       <tr>
+<tr>
+<td rowspan="1" colspan="1" class="slash" style="border:1px solid;border-width: 0px 0px 0px 0px"> </td>
+<td rowspan="1" colspan="11"  style="font-size:20px; text-align:center; solid;border-width:2px 0px 0px 0px">윗면</td>
+<td rowspan="1" colspan="1" class="slash" style="border:1px solid;border-width:2px 2px 0px 0px"> </td>
+</tr>
+			<tr>
 
-        <td><input type="button" name="cabinet" id="A28" value="A28"/></td>
-        <td><input type="button" name="cabinet" id="A29" value="A29"/></td>
-        <td><input type="button" name="cabinet" id="A30" value="A30"/></td>
-        <td><input type="button" name="cabinet" id="A1" value="A1"/></td>
-        <td><input type="button" name="cabinet" id="A2" value="A2"/></td>
-        <td><input type="button" name="cabinet" id="A3" value="A3"/></td>
-        <td><input type="button" name="cabinet" id="A10" value="A10"/></td>
-        <td><input type="button" name="cabinet" id="A11" value="A11"/></td>
-        <td><input type="button" name="cabinet" id="A12" value="A12"/></td>
-        <td><input type="button" name="cabinet" id="A27" value="A27"/></td>
-        <td><input type="button" name="cabinet" id="A26" value="A26"/></td>
-        <td><input type="button" name="cabinet" id="A25" value="A25"/></td>
-        <td rowspan="2" colspan="3" style="font-size:20px; text-align:center; border:1px solid;border-width:0px 2px 0px 2px">옆면</td>
-        </tr>
+				 <td><input type="button" name="cabinet" id="A28" value="A28"/></td>
+				<td><input type="button" name="cabinet" id="A29" value="A29"/></td>
+				<td><input type="button" name="cabinet" id="A30" value="A30"/></td>
+			 <td><input type="button" name="cabinet" id="A1" value="A1"/></td>
+			 <td><input type="button" name="cabinet" id="A2" value="A2"/></td>
+			 <td><input type="button" name="cabinet" id="A3" value="A3"/></td>
+			 <td><input type="button" name="cabinet" id="A10" value="A10"/></td>
+			 <td><input type="button" name="cabinet" id="A11" value="A11"/></td>
+			 <td><input type="button" name="cabinet" id="A12" value="A12"/></td>
+			 <td><input type="button" name="cabinet" id="A27" value="A27"/></td>
+			 <td><input type="button" name="cabinet" id="A26" value="A26"/></td>
+			 <td><input type="button" name="cabinet" id="A25" value="A25"/></td>
+			 <td rowspan="2" colspan="3" style="font-size:20px; text-align:center; border:1px solid;border-width:0px 2px 0px 2px">옆면</td>
+			 </tr>
 
-        <tr>
-        <td><input type="button" name="cabinet" id="A31" value="A31"/></td>
-        <td><input type="button" name="cabinet" id="A32" value="A32"/></td>
-        <td><input type="button" name="cabinet" id="A33" value="A33"/></td>
-        <td><input type="button" name="cabinet" id="A4" value="A4"/></td>
-        <td><input type="button" name="cabinet" id="A5" value="A5"/></td>
-        <td><input type="button" name="cabinet" id="A6" value="A6"/></td>
-        <td><input type="button" name="cabinet" id="A13" value="A13"/></td>
-        <td><input type="button" name="cabinet" id="A14" value="A14"/></td>
-        <td><input type="button" name="cabinet" id="A15" value="A15"/></td>
-        <td><input type="button" name="cabinet" id="A24" value="A24"/></td>
-        <td><input type="button" name="cabinet" id="A23" value="A23"/></td>
-        <td><input type="button" name="cabinet" id="A22" value="A22"/></td>
-       </tr>
+			 <tr>
+			 <td><input type="button" name="cabinet" id="A31" value="A31"/></td>
+			 <td><input type="button" name="cabinet" id="A32" value="A32"/></td>
+			 <td><input type="button" name="cabinet" id="A33" value="A33"/></td>
+			 <td><input type="button" name="cabinet" id="A4" value="A4"/></td>
+			 <td><input type="button" name="cabinet" id="A5" value="A5"/></td>
+			 <td><input type="button" name="cabinet" id="A6" value="A6"/></td>
+			 <td><input type="button" name="cabinet" id="A13" value="A13"/></td>
+			 <td><input type="button" name="cabinet" id="A14" value="A14"/></td>
+			 <td><input type="button" name="cabinet" id="A15" value="A15"/></td>
+			 <td><input type="button" name="cabinet" id="A24" value="A24"/></td>
+			 <td><input type="button" name="cabinet" id="A23" value="A23"/></td>
+			 <td><input type="button" name="cabinet" id="A22" value="A22"/></td>
+			</tr>
 
-        <tr>
-        <td><input type="button" name="cabinet" id="A34" value="A34"/></td>
-        <td><input type="button" name="cabinet" id="A35" value="A35"/></td>
-        <td><input type="button" name="cabinet" id="A36" value="A36"/></td>
-        <td><input type="button" name="cabinet" id="A7" value="A7"/></td>
-        <td><input type="button" name="cabinet" id="A8" value="A8"/></td>
-        <td><input type="button" name="cabinet" id="A9" value="A9"/></td>
-        <td><input type="button" name="cabinet" id="A16" value="A16"/></td>
-        <td><input type="button" name="cabinet" id="A17" value="A17"/></td>
-        <td><input type="button" name="cabinet" id="A18" value="A18"/></td>
-        <td><input type="button" name="cabinet" id="A21" value="A21"/></td>
-        <td><input type="button" name="cabinet" id="A20" value="A20"/></td>
-        <td><input type="button" name="cabinet" id="A19" value="A19"/></td>
-        <td rowspan="1" colspan="3" class="slash" style="border:1px solid;border-width:0px 0px 0px 1px"></td>
-      </tr>
-          <tr></tr>
-
-
- </table>
- </div>
-
- <br/><br/>
- <div id="dialog2" style="display:none">
- <br/><br/><br/>
- <table border="2" style="border-collapse:collapse; border-style:none; margin-left: auto; margin-right: auto;">
-
- <tr>
- <td rowspan="1" colspan="1" class="slash" style="border:1px solid;border-width: 0px 0px 0px 0px"> </td>
- <td rowspan="1" colspan="11"  style="font-size:20px; text-align:center; border:1px solid;border-width:2px 0px 0px 0px">윗면</td>
- <td rowspan="1" colspan="1" class="slash" style="border:1px solid;border-width:2px 2px 0px 0px"> </td>
-  </tr>
-
- <tr>
-
-  <td><input type="button" name="cabinet" id="B1" value="B1"/></td>
-  <td><input type="button" name="cabinet" id="B2" value="B2"/></td>
-  <td><input type="button" name="cabinet" id="B11" value="B11"/></td>
-  <td><input type="button" name="cabinet" id="B12" value="B12"/></td>
-  <td><input type="button" name="cabinet" id="B21" value="B21"/></td>
-  <td><input type="button" name="cabinet" id="B22" value="B22"/></td>
-  <td><input type="button" name="cabinet" id="B31" value="B31"/></td>
- <td><input type="button" name="cabinet" id="B32" value="B32"/></td>
-  <td><input type="button" name="cabinet" id="B41" value="B41"/></td>
-         <td><input type="button" name="cabinet" id="B42" value="B42"/></td>
-         <td><input type="button" name="cabinet" id="B51" value="B51"/></td>
-         <td><input type="button" name="cabinet" id="B52" value="B52"/></td>
- <td rowspan="4" colspan="3" style="font-size:20px; text-align:center; border:1px solid;border-width:0px 2px 0px 2px">옆면</td>
- </tr>
-
- <tr>
- <td><input type="button" name="cabinet" id="B3" value="B3"/></td>
- <td><input type="button" name="cabinet" id="B4" value="B4"/></td>
- <td><input type="button" name="cabinet" id="B13" value="B13"/></td>
- <td><input type="button" name="cabinet" id="B14" value="B14"/></td>
- <td><input type="button" name="cabinet" id="B23" value="B23"/></td>
- <td><input type="button" name="cabinet" id="B24" value="B24"/></td>
- <td><input type="button" name="cabinet" id="B33" value="B33"/></td>
- <td><input type="button" name="cabinet" id="B34" value="B34"/></td>
- <td><input type="button" name="cabinet" id="B43" value="B43"/></td>
-         <td><input type="button" name="cabinet" id="B44" value="B44"/></td>
-         <td><input type="button" name="cabinet" id="B53" value="B53"/></td>
-         <td><input type="button" name="cabinet" id="B54" value="B54"/></td>
- </tr>
-
-  <tr>
-  <td><input type="button" name="cabinet" id="B5" value="B5"/></td>
- <td><input type="button" name="cabinet" id="B6" value="B6"/></td>
- <td><input type="button" name="cabinet" id="B15" value="B15"/></td>
- <td><input type="button" name="cabinet" id="B16" value="B16"/></td>
- <td><input type="button" name="cabinet" id="B25" value="B25"/></td>
- <td><input type="button" name="cabinet" id="B26" value="B26"/></td>
- <td><input type="button" name="cabinet" id="B35" value="B35"/></td>
- <td><input type="button" name="cabinet" id="B36" value="B36"/></td>
- <td><input type="button" name="cabinet" id="B45" value="B45"/></td>
-         <td><input type="button" name="cabinet" id="B46" value="B46"/></td>
-         <td><input type="button" name="cabinet" id="B55" value="B55"/></td>
-         <td><input type="button" name="cabinet" id="B56" value="B56"/></td>
-
-       </tr>
-       <tr>
-       <td><input type="button" name="cabinet" id="B7" value="B7"/></td>
-       <td><input type="button" name="cabinet" id="B8" value="B8"/></td>
-       <td><input type="button" name="cabinet" id="B17" value="B17"/></td>
-       <td><input type="button" name="cabinet" id="B18" value="B18"/></td>
-       <td><input type="button" name="cabinet" id="B27" value="B27"/></td>
-       <td><input type="button" name="cabinet" id="B28" value="B28"/></td>
-       <td><input type="button" name="cabinet" id="B37" value="B37"/></td>
-       <td><input type="button" name="cabinet" id="B38" value="B38"/></td>
-       <td><input type="button" name="cabinet" id="B47" value="B47"/></td>
-       <td><input type="button" name="cabinet" id="B48" value="B48"/></td>
-       <td><input type="button" name="cabinet" id="B57" value="B57"/></td>
-       <td><input type="button" name="cabinet" id="B58" value="B58"/></td>
-
-     </tr>
-     <tr>
-     <td><input type="button" name="cabinet" id="B9" value="B9"/></td>
-     <td><input type="button" name="cabinet" id="B10" value="B10"/></td>
-     <td><input type="button" name="cabinet" id="B19" value="B19"/></td>
-     <td><input type="button" name="cabinet" id="B20" value="B20"/></td>
-     <td><input type="button" name="cabinet" id="B29" value="B29"/></td>
-     <td><input type="button" name="cabinet" id="B30" value="B30"/></td>
-     <td><input type="button" name="cabinet" id="B39" value="B39"/></td>
-     <td><input type="button" name="cabinet" id="B40" value="B40"/></td>
-     <td><input type="button" name="cabinet" id="B49" value="B49"/></td>
-     <td><input type="button" name="cabinet" id="B50" value="B50"/></td>
-     <td><input type="button" name="cabinet" id="B59" value="B59"/></td>
-     <td><input type="button" name="cabinet" id="B60" value="B60"/></td>
-     <td rowspan="1" colspan="3" class="slash" style="border:1px solid;border-width:0px 0px 0px 1px"></td>
-   </tr>
- <tr></tr>
+			 <tr>
+			 <td><input type="button" name="cabinet" id="A34" value="A34"/></td>
+			 <td><input type="button" name="cabinet" id="A35" value="A35"/></td>
+			 <td><input type="button" name="cabinet" id="A36" value="A36"/></td>
+			 <td><input type="button" name="cabinet" id="A7" value="A7"/></td>
+			 <td><input type="button" name="cabinet" id="A8" value="A8"/></td>
+			 <td><input type="button" name="cabinet" id="A9" value="A9"/></td>
+			 <td><input type="button" name="cabinet" id="A16" value="A16"/></td>
+			 <td><input type="button" name="cabinet" id="A17" value="A17"/></td>
+			 <td><input type="button" name="cabinet" id="A18" value="A18"/></td>
+			 <td><input type="button" name="cabinet" id="A21" value="A21"/></td>
+			 <td><input type="button" name="cabinet" id="A20" value="A20"/></td>
+			 <td><input type="button" name="cabinet" id="A19" value="A19"/></td>
+			 <td rowspan="1" colspan="3" class="slash" style="border:1px solid;border-width:0px 0px 0px 1px"></td>
+		 </tr>
+				 <tr></tr>
 
 
- </table>
+</table>
 </div>
 
-	   <br/><br/><br/><br/>
-	   <div class="row">
-	   <div style="margin-left:50px"  class="col-md-2 panel panel-info" >
-			 <div class="panel panel-info">
-	    <div class="panel-heading" style="text-align:center; font-size:15px;">학생 정보</div>
+<br/><br/>
+<div id="dialog2" style="display:none">
+<br/><br/><br/>
+<table border="2" style="border-collapse:collapse; border-style:none; margin-left: auto; margin-right: auto;">
 
-			<div class="panel-body">
-	   <font size="3em"> 학번 :  <font id='id'/></font></font><br/><br/>
-	   <font size="3em"> 이름 :  <font id='name'/></font></font><br/><br/>
-	   <font size="3em"> 학년 :  <font id='grade'></font></font>
-	 </div>
- </div>
- 		 <div class="panel panel-info">
-		 <div class="panel-heading" style="text-align:center; font-size:15px;">학년별 신청구역</div>
-		 <div class="panel-body">
-			 1학년 신청구역 :  A-3, A-4 <br/>
-			 2학년 신청구역 :  A-1, B-1 <br/>
-			 3학년 신청구역 :  A-2, C <br/>
-			 4학년 신청구역 :  B-2, D <br/>
-		 </div>
-	 	</div>
+<tr>
+<td rowspan="1" colspan="1" class="slash" style="border:1px solid;border-width: 0px 0px 0px 0px"> </td>
+<td rowspan="1" colspan="11"  style="font-size:20px; text-align:center; border:1px solid;border-width:2px 0px 0px 0px">윗면</td>
+<td rowspan="1" colspan="1" class="slash" style="border:1px solid;border-width:2px 2px 0px 0px"> </td>
+ </tr>
 
-		<div class="panel panel-info">
-		<div class="panel-heading" style="text-align:center; font-size:15px;">사물함 신청방법</div>
-		<div class="panel-body">
-			자기 학년에 해당하는 신청구역을 클릭하면
-			이미지가 나타납니다.
-		</div>
-	 </div>
+<tr>
+
+ <td><input type="button" name="cabinet" id="B1" value="B1"/></td>
+ <td><input type="button" name="cabinet" id="B2" value="B2"/></td>
+ <td><input type="button" name="cabinet" id="B11" value="B11"/></td>
+ <td><input type="button" name="cabinet" id="B12" value="B12"/></td>
+ <td><input type="button" name="cabinet" id="B21" value="B21"/></td>
+ <td><input type="button" name="cabinet" id="B22" value="B22"/></td>
+ <td><input type="button" name="cabinet" id="B31" value="B31"/></td>
+<td><input type="button" name="cabinet" id="B32" value="B32"/></td>
+ <td><input type="button" name="cabinet" id="B41" value="B41"/></td>
+				<td><input type="button" name="cabinet" id="B42" value="B42"/></td>
+				<td><input type="button" name="cabinet" id="B51" value="B51"/></td>
+				<td><input type="button" name="cabinet" id="B52" value="B52"/></td>
+<td rowspan="4" colspan="3" style="font-size:20px; text-align:center; border:1px solid;border-width:0px 2px 0px 2px">옆면</td>
+</tr>
+
+<tr>
+<td><input type="button" name="cabinet" id="B3" value="B3"/></td>
+<td><input type="button" name="cabinet" id="B4" value="B4"/></td>
+<td><input type="button" name="cabinet" id="B13" value="B13"/></td>
+<td><input type="button" name="cabinet" id="B14" value="B14"/></td>
+<td><input type="button" name="cabinet" id="B23" value="B23"/></td>
+<td><input type="button" name="cabinet" id="B24" value="B24"/></td>
+<td><input type="button" name="cabinet" id="B33" value="B33"/></td>
+<td><input type="button" name="cabinet" id="B34" value="B34"/></td>
+<td><input type="button" name="cabinet" id="B43" value="B43"/></td>
+				<td><input type="button" name="cabinet" id="B44" value="B44"/></td>
+				<td><input type="button" name="cabinet" id="B53" value="B53"/></td>
+				<td><input type="button" name="cabinet" id="B54" value="B54"/></td>
+</tr>
+
+ <tr>
+ <td><input type="button" name="cabinet" id="B5" value="B5"/></td>
+<td><input type="button" name="cabinet" id="B6" value="B6"/></td>
+<td><input type="button" name="cabinet" id="B15" value="B15"/></td>
+<td><input type="button" name="cabinet" id="B16" value="B16"/></td>
+<td><input type="button" name="cabinet" id="B25" value="B25"/></td>
+<td><input type="button" name="cabinet" id="B26" value="B26"/></td>
+<td><input type="button" name="cabinet" id="B35" value="B35"/></td>
+<td><input type="button" name="cabinet" id="B36" value="B36"/></td>
+<td><input type="button" name="cabinet" id="B45" value="B45"/></td>
+				<td><input type="button" name="cabinet" id="B46" value="B46"/></td>
+				<td><input type="button" name="cabinet" id="B55" value="B55"/></td>
+				<td><input type="button" name="cabinet" id="B56" value="B56"/></td>
+
+			</tr>
+			<tr>
+			<td><input type="button" name="cabinet" id="B7" value="B7"/></td>
+			<td><input type="button" name="cabinet" id="B8" value="B8"/></td>
+			<td><input type="button" name="cabinet" id="B17" value="B17"/></td>
+			<td><input type="button" name="cabinet" id="B18" value="B18"/></td>
+			<td><input type="button" name="cabinet" id="B27" value="B27"/></td>
+			<td><input type="button" name="cabinet" id="B28" value="B28"/></td>
+			<td><input type="button" name="cabinet" id="B37" value="B37"/></td>
+			<td><input type="button" name="cabinet" id="B38" value="B38"/></td>
+			<td><input type="button" name="cabinet" id="B47" value="B47"/></td>
+			<td><input type="button" name="cabinet" id="B48" value="B48"/></td>
+			<td><input type="button" name="cabinet" id="B57" value="B57"/></td>
+			<td><input type="button" name="cabinet" id="B58" value="B58"/></td>
+
+		</tr>
+		<tr>
+		<td><input type="button" name="cabinet" id="B9" value="B9"/></td>
+		<td><input type="button" name="cabinet" id="B10" value="B10"/></td>
+		<td><input type="button" name="cabinet" id="B19" value="B19"/></td>
+		<td><input type="button" name="cabinet" id="B20" value="B20"/></td>
+		<td><input type="button" name="cabinet" id="B29" value="B29"/></td>
+		<td><input type="button" name="cabinet" id="B30" value="B30"/></td>
+		<td><input type="button" name="cabinet" id="B39" value="B39"/></td>
+		<td><input type="button" name="cabinet" id="B40" value="B40"/></td>
+		<td><input type="button" name="cabinet" id="B49" value="B49"/></td>
+		<td><input type="button" name="cabinet" id="B50" value="B50"/></td>
+		<td><input type="button" name="cabinet" id="B59" value="B59"/></td>
+		<td><input type="button" name="cabinet" id="B60" value="B60"/></td>
+		<td rowspan="1" colspan="3" class="slash" style="border:1px solid;border-width:0px 0px 0px 1px"></td>
+	</tr>
+<tr></tr>
 
 
-	  </div>
+</table>
+</div>
 
-	   <div class="col-md-9">
+ <br/><br/><br/><br/>
+ <div class="row">
+ <div style="margin-left:50px"  class="col-md-2 panel panel-info" >
+<div class="panel panel-info">
+	<div class="panel-heading" style="text-align:center; font-size:15px;">학생 정보</div>
+
+<div class="panel-body">
+ <font size="3em"> 학번 :  <font id='id'/></font></font><br/><br/>
+ <font size="3em"> 이름 :  <font id='name'/></font></font><br/><br/>
+ <font size="3em"> 학년 :  <font id='grade'/></font></font><br/><br/>
+ <font size="3em"> 신청사물함 :  <font id='cabinet'></font></font>
+</div>
+</div>
+ <div class="panel panel-info">
+<div class="panel-heading" style="text-align:center; font-size:15px;">학년별 신청구역</div>
+<div class="panel-body">
+1학년 신청구역 :  A-3, A-4 <br/>
+2학년 신청구역 :  A-1, B-1 <br/>
+3학년 신청구역 :  A-2, C <br/>
+4학년 신청구역 :  B-2, D <br/>
+</div>
+</div>
+
+<div class="panel panel-info">
+<div class="panel-heading" style="text-align:center; font-size:15px;">사물함 신청방법</div>
+<div class="panel-body">
+자기 학년에 해당하는 신청구역을 클릭하면
+이미지가 나타납니다.
+</div>
+</div>
+
+
+</div>
+
+ <div class="col-md-9">
 
 <div>
-	<br/><br/><br/><br/>
-	<img src="images/title.png" alt="Title">
-	<br/><br/><br/>
-<img src="images/stair2.png" alt="stair_left_hidden" style="visibility:hidden;"><img src="images/A-2.png" alt="A-2"><img src="images/B-1.png" id="link2" alt="B-1"><img src="images/B-2.png" alt="B-2"><img src="images/C.png" alt="C"><img src="images/D.png" alt="D"><img src="images/A-3.png" alt="A-3"><img src="images/stair.png" alt="stair_top"><img src="images/A-4.png" alt="A-4">
+<br/><br/><br/><br/>
+<img src="images/title.png" alt="Title">
+<br/><br/><br/>
+<img src="images/stair2.png" alt="stair_left_hidden" style="visibility:hidden;"><img src="images/A-2.png" alt="A-2"><img src="images/B-1.png" id="link2" style="cursor:pointer" alt="B-1"><img src="images/B-2.png" alt="B-2"><img src="images/C.png" alt="C"><img src="images/D.png" alt="D"><img src="images/A-3.png" alt="A-3"><img src="images/stair.png" alt="stair_top"><img src="images/A-4.png" alt="A-4">
 <br/>
 <img src="images/stair2.png" alt="stair_left"><img src="images/way.png" alt="way">
 <br/>
-<img src="images/stair2.png" alt="stair_left_hidden" style="visibility:hidden;" ><img src="images/231.png" alt="231"><img src="images/A-1.png" id="link1" alt="A-1"><img src="images/232.png" alt="232"><img src="images/toilet.png" alt="toilet">
+<img src="images/stair2.png" alt="stair_left_hidden" style="visibility:hidden;" ><img src="images/231.png" alt="231"><img src="images/A-1.png" id="link1" style="cursor:pointer" alt="A-1"><img src="images/232.png" alt="232"><img src="images/toilet.png" alt="toilet">
 </div>
 </div>
 </div>
@@ -428,6 +431,5 @@
 
 
 
-
-	</body>
-	</html>
+ </body>
+ </html>

@@ -26,10 +26,6 @@
 </style>
 <meta charset="UTF-8">
 <title>3학년 사물함신청 페이지</title>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-<link rel="stylesheet" href="/resources/demos/style.css">
 <!-- 합쳐지고 최소화된 최신 CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
@@ -38,6 +34,11 @@
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" href="/resources/demos/style.css">
+
 
 
 </head>
@@ -119,10 +120,9 @@
 		if(cabinetState==0) {
 			%>
 			<script>
-
 			$(function(){
-
 				var tag = $('#<%=cabinetNumber%>');
+				tag.removeClass('');
 				tag.addClass('btn btn-danger');
 			}
 		);
@@ -133,6 +133,7 @@
 			<script>
 			$(function(){
 				var tag = $('#<%=cabinetNumber%>');
+				tag.removeClass('');
 				tag.addClass('btn btn-success');
 			}
 		);
@@ -362,7 +363,7 @@
 		  </tr>
 
 			 <tr>
-			  <td><input type="button" name="cabinet" id="A82" value="A82"/></td>
+				<td><input type="button" name="cabinet" id="A82" value="A82"/></td>
 			  <td><input type="button" name="cabinet" id="A83" value="A83"/></td>
 			  <td><input type="button" name="cabinet" id="A84" value="A84"/></td>
 				<td rowspan="2" colspan="3" style="font-size:20px; text-align:center; border:1px solid;border-width:0px 2px 0px 2px">옆면</td>
@@ -376,7 +377,7 @@
 			 </tr>
 
 			  <tr>
-			  <td><input type="button" name="cabinet" id="A88" value="A88"/></td>
+				<td><input type="button" name="cabinet" id="A88" value="A88"/></td>
 				<td><input type="button" name="cabinet" id="A89" value="A89"/></td>
 				<td><input type="button" name="cabinet" id="A90" value="A90"/></td>
 				<td rowspan="1" colspan="3" class="slash" style="border:1px solid;border-width:0px 0px 0px 1px"></td>
@@ -395,7 +396,8 @@
 			<div class="panel-body">
 	   <font size="3em"> 학번 :  <font id='id'/></font></font><br/><br/>
 	   <font size="3em"> 이름 :  <font id='name'/></font></font><br/><br/>
-	   <font size="3em"> 학년 :  <font id='grade'></font></font>
+	   <font size="3em"> 학년 :  <font id='grade'></font></font><br/><br/>
+		 <font size="3em"> 신청사물함 :  <font id='cabinet'></font></font>
 	 </div>
  </div>
  		 <div class="panel panel-info">
@@ -425,7 +427,7 @@
 	<br/><br/><br/><br/>
 	<img src="images/title.png" alt="Title">
 	<br/><br/><br/>
-<img src="images/stair2.png" alt="stair_left_hidden" style="visibility:hidden;"><img src="images/A-2.png" id="link2" alt="A-2"><img src="images/B-1.png" alt="B-1"><img src="images/B-2.png" alt="B-2"><img src="images/C.png" id="link1" alt="C"><img src="images/D.png" alt="D"><img src="images/A-3.png" alt="A-3"><img src="images/stair.png" alt="stair_top"><img src="images/A-4.png"  alt="A-4">
+<img src="images/stair2.png" alt="stair_left_hidden" style="visibility:hidden;"><img src="images/A-2.png" id="link2" style="cursor:pointer" alt="A-2"><img src="images/B-1.png" alt="B-1"><img src="images/B-2.png" alt="B-2"><img src="images/C.png" id="link1" style="cursor:pointer" alt="C"><img src="images/D.png" alt="D"><img src="images/A-3.png" alt="A-3"><img src="images/stair.png" alt="stair_top"><img src="images/A-4.png"  alt="A-4">
 <br/>
 <img src="images/stair2.png" alt="stair_left"><img src="images/way.png" alt="way">
 <br/>
