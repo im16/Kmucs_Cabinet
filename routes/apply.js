@@ -201,6 +201,7 @@ router.get('/', function(req, res, next) {
           res.redirect(sendMessage);
         }
 	});
+	connection.release(); 
       });
       
     });

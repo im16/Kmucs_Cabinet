@@ -66,7 +66,6 @@ router.post('/',function(req,res,next){
           if(money==0)
           {message="학생회비를 미납하셨습니다.";
 	    res.render('login', {title: 'test', ee:message});
-           connection.release();
           }
           //학번과 비밀번호가 같은 경우, 즉 초기상태 >> 여기서 password.js로 바로 넘어감
           else if(login_pwd == login_id){
@@ -76,7 +75,6 @@ router.post('/',function(req,res,next){
           else if(login_pwd != rows[0].S_Password)
           { message="비밀번호가 일치하지 않습니다.";
             res.render('login', {title: 'test', ee:message});
-            connection.release();
           }
           // 원래의 경우, 비밀번호 변경 후에는 여기로 와서  사물함 신청페이지로
           else {
@@ -90,12 +88,14 @@ router.post('/',function(req,res,next){
        	  { 
 	   message="일치하는 학생정보가 없습니다.";
 	   res.render('login', {title: 'test', ee:message});
-           connection.release();
 	  }
 
 
       });
     }
+
+	 connection.release();	
+
   });
 });
 
