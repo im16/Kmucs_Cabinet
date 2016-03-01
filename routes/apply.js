@@ -130,21 +130,17 @@ if(applyFlag=='1'){ //신청가능 시간이면
       if(possible<avail_use)
       {
         possible+=1;
-        console.log("if possible 에 들어온다.");
         connection.query('UPDATE cabinet_infos set IsUse= ? where CabinetNo=? ' ,[possible,cabinet_old],function(err,rows) {
           if (err) throw err;
 
         });
 
         status=3;  // 캐비넷 반환한다. (성공)
-console.log("캐비넷반환성공");
+
       }
 
       else
-      {
-        console.log("에러안에들어온다");
         status=4; // 에러
-      }
       });
 
     if(status==4) throw err;
@@ -153,9 +149,9 @@ console.log("캐비넷반환성공");
       connection.query('DELETE FROM Relation_Stu_Cab WHERE S_Id = ?' ,studentID,function(err,rows) {
         if (err) throw err;  });
 
-
   }
 
+  //여기서부터 신청!! 1.사물함 use비트 변경 2.관계테이블에 추가
 
   // 사물함 use비트 내리기 (새로신청하는 사물함 cabinet_apply)
   connection.query('SELECT * FROM cabinet_infos  WHERE CabinetNo = ? ' ,cabinet_apply,function(err,rows) {
@@ -164,9 +160,7 @@ console.log("캐비넷반환성공");
 
     var possible=rows[0].IsUse;
 
-
-    console.log("캐비넷번호11: "+ cabinet_apply+" 현재값은"+possible);
-
+  //  console.log("캐비넷번호: "+ cabinet_apply+" 현재값은"+possible);
 
     if(possible>0)
     {
@@ -180,7 +174,12 @@ console.log("캐비넷반환성공");
     }
 
     else
-      status=2; // 이미 신청했다.
+      {
+        status=2; // 그 사이에 이미 신청했다. 다시신청하도록!
+        var sendMessage="/apply?"+"id="+studentID+"&name="+studentName+"&grade="+studentGrade+"&status="+status;
+        res.redirect(sendMessage);
+
+      }
 
     });
 
