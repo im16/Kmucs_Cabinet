@@ -2,7 +2,7 @@
 var express = require('express');
 var mysql = require('mysql');
 var router = express.Router();
-
+var time = require('time');
 var pool = mysql.createPool({
   connectionLimit: 3,
   host: 'localhost',
@@ -15,68 +15,76 @@ var location='/';
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    pool.getConnection(function(err,connection){
+  pool.getConnection(function(err,connection){
+
 	//잘못된 접근을 막을 수 있도록.
-	var access = req.headers['referrer'] || req.headers['referer'];
-	if(access==undefined) res.redirect("/login");
-       connection.query('SELECT * FROM StartFlag',function(err,arr){
-	   if(err) throw err;
-	   var str;
-	   if(arr[0].flag=='0') str='유저 신청 못하고 있음';
-	   else str= '유저 신청 가능함';
-
-	   var mss='관리자 페이지 입니다.';
-
-	res.render('manager',{message:mss,sta:'get',string:str});
-	});
-	connection.release();
-
-
+	 var access = req.headers['referrer'] || req.headers['referer'];
+   if(access==undefined) res.redirect("/login");
+   var mss='관리자 페이지 입니다.';
+   var info;
+   connection.query('SELECT * FROM Relation_Stu_Cab',function(err,rows){
+     if(err) throw err;
+     info=rows;
+     res.render('manager1',{message:mss,rel_info:info});
    });
-
-});
+	connection.release();
+  });
+ });
 
 router.post('/', function(req,res,next){
 	var func1 = req.body.a;
-        var mss;
-        var info;
+  var mss;
+  var info;
 	var sta1;
 	var str;
+  var info;
 
 	pool.getConnection(function(err,connection){
-		if(func1=='start'){
-			connection.query('UPDATE StartFlag set flag=?','1',function(err,arr){
-				if(err) throw err;
-		        str="유저 신청 가능함"
-			mss="유저가 신청 가능하게 됬습니다";
-			sta1='start';
-			res.render('manager',{message:mss,sta:sta1,string:str});
-			});
-		} // 신청 가능
-		if(func1=='end'){
-			connection.query('UPDATE StartFlag set flag=?','0',function(err,arr){
-                                if(err) throw err;
 
-                        mss="유저가 신청 불가능하게 됬습니다";
-			str="유저 신청 불가능함"
-                        sta1='end';
-                        res.render('manager',{message:mss,sta:sta1,string:str});
-			});
-		} // 신청을 불가능
-		if(func1=='stuDel')// 학생 정보 모두 삭제.
+    connection.query('SELECT * FROM Relation_Stu_Cab',function(err,rows){
+      if(err) throw err;
+      info=rows;
+    });
+
+    if(func1=="time_setting")
+    {
+      var now = new time.Date();
+      now.setTimezone('UTC-9');
+
+      var start_time = req.body.start_time;
+      var end_time = req.body.end_time;
+      var start_timeArr = start_time.split(':');
+      var end_timeArr = end_time.split(':');
+      var start_ms = Date.UTC(now.getFullYear(),now.getMonth(),now.getDay(),start_timeArr[0],start_timeArr[1]);
+      var end_ms = Date.UTC(now.getFullYear(),now.getMonth(),now.getDay(),end_timeArr[0],start_timeArr[1]);
+
+     connection.query('DELETE FROM possible_time',function(err,rows){
+        if(err) throw err;
+      });
+      connection.query('INSERT INTO possible_time VALUES(?,?)' ,[start_ms,end_ms],function(err,rows) {
+        if (err)
+          {
+            throw err;
+          }
+          var mss="시간설정 성공"
+          res.render('manager1',{message:mss,rel_info:info});
+      });
+
+
+    }
+
+		if(func1=='student_del')// 학생 정보 모두 삭제.
 		{
 			connection.query('DELETE FROM student_infos',function(err,rows){
 				if(err) throw err;
 				mss="학생정보 모두 삭제 성공";
-				sta1='stuDel';
-				res.render('manager',{message:mss,sta:sta1});
+				res.render('manager',{message:mss,rel_info:info});
 			});
 		}
-		if (func1=='relDel') //관계 데이터 모두 삭제.
+		else if (func1=='relation_del') //관계 데이터 모두 삭제.
 		{
 			connection.query('SELECT * FROM Relation_Stu_Cab',function(err,rows){
-                                if(err) throw err;
-				console.log(rows.length);
+        if(err) throw err;
 
 				for(var i=0; i<rows.length; i++)
 				{
@@ -108,35 +116,15 @@ router.post('/', function(req,res,next){
 
 
 
-                                mss="관계정보 모두 삭제 성공"
-				sta1='relDel'
-				res.render('manager',{message:mss,sta:sta1});
+        mss="관계정보 모두 삭제 성공"
+				res.render('manager',{message:mss,rel_info:info});
 				});
-                        });
+    });
 
-		}
-		if(func1=='list') // 신청 정보 모두 보기
-		{
-			connection.query('SELECT * FROM Relation_Stu_Cab',function(err,rows){
-				if(err) throw err;
-				mss="보여 줄께"
-				info=rows;
-				sta1='list'
-				console.log(rows);
-				res.render('manager',{message:mss,rel_info:info,sta:sta1});
+	}
 
-			});
-		}
-
-
-
-
-connection.release();
-
-
-	});
-
-
+ connection.release();
+ });
 });
 
 

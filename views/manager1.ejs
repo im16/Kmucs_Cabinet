@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <script src="/javascripts/jquery-1.11.3.min.js"></script>
+    <style>
+
+      #jb-header {
+        color: #00008b;
+        text-align: center;
+        font-size: 20px;
+      }
+      #jb-content {
+        width: 900px;
+        hight: auto;
+        padding: 20px;
+        margin-bottom: 20px;
+        float: left;
+
+      }
+      #jb-sidebar {
+        width: 260px;
+        padding: 20px;
+        margin-bottom: 20px;
+        float: right;
+        text-align:center;
+
+      }
+      #jb-sidebar1 {
+        width: 260px;
+        height: auto;
+        padding: 20px;
+        margin-bottom: 20px;
+        float: right;
+        text-align:center;
+
+      }
+
+
+      .func {
+        background: #0c2b40;
+        background-image: -webkit-linear-gradient(top, #0c2b40, #0c2b40);
+        background-image: -moz-linear-gradient(top, #0c2b40, #0c2b40);
+        background-image: -ms-linear-gradient(top, #0c2b40, #0c2b40);
+        background-image: -o-linear-gradient(top, #0c2b40, #0c2b40);
+        background-image: linear-gradient(to bottom, #0c2b40, #0c2b40);
+        -webkit-border-radius: 0;
+        -moz-border-radius: 0;
+        border-radius: 0px;
+        font-family: Georgia;
+        color: #ffffff;
+        font-size: 10px;
+        padding: 3px 3px 3px 3px;
+        text-decoration: none;
+      }
+
+
+    </style>
+  </head>
+  <body>
+
+      <div id="jb-header">
+        <h1> KMUCS 사물함 관리자 페이지</h1>
+      </div>
+      <div id="jb-content">
+        <fieldset>
+        <legend style="margin: 0; padding: 0;" id="list">신청현황</legend>
+        <%
+          var mss = message;
+          var relInfo = rel_info;
+        %>
+        <script>
+          alert('<%=mss%>');
+        </script>
+        <%
+     	    if(relInfo.length!=0)
+     	    {
+     	  %>
+
+
+        <table>
+     				<tr><h3>1학년</h3></tr>
+     	      <tr><div id="1list"></div></tr>
+     	      <tr><h3>2학년</h2></tr>
+     				<tr><div id='2list'></div></tr>
+     	      <tr><h3>3학년</h3></tr>
+     				<tr><div id='3list'></div></tr>
+     	      <tr><h3>4학년</h3></tr>
+     				<tr><div id='4list'></div></tr>
+     	 </table>
+
+     	 <%
+
+     	    for(var i=0; i<relInfo.length; i++)
+     	    {
+     		     var grade = relInfo[i].S_Grade;
+       %>
+     	<script>
+        var txt ='<p><%=relInfo[i].S_Name%>&#09 <%=relInfo[i].S_Id%>&#09<%=relInfo[i].CabinetNo%></p>';
+        $('#<%=grade%>list').append(txt);
+     	</script>
+      <%
+          }
+        }
+      %>
+    </fieldset>
+    </div>
+      <div id="jb-sidebar">
+        <fieldset>
+        <legend style="margin: 0; padding: 0;" id="list">DB 명령어</legend>
+        <form  action="/manager" method="post" id="FUNC">
+          <input type="submit" class='func' name="a" value="student_del"/>
+          <input type="submit" class='func' name="a"  value="relation_del"/>
+        </form>
+      </fieldset>
+      </div>
+
+      <div id="jb-sidebar1">
+        <fieldset>
+        <legend style="margin: 0; padding: 0;" id="list">신청시간 설정</legend>
+        <form  action="/manager" method="post" id="FUNC">
+          <input type="time" name="start_time"/>
+          ~<input type="time" name="end_time"/><br/><br/>
+          <input type="submit" class='func' name="a" value="time_setting" />
+        </form>
+      </fieldset>
+      </div>
+
+
+  </body>
+
+  <script>
+    $(function(){
+          $(".func").click(
+               function(){
+                   var selected = $(this).val();
+                   var result =0;
+                   if(selected=='student_del'||selected=='relation_del'){
+                         alert('삭제된 데이터는 다시 복구할 수 없습니다.');
+                   }
+                   if(selected=='time_setting') result=1;
+                   if(selected=='student_del') result = confirm('학생 정보를 모두 삭제하시겠습니까?');
+                   if(selected=='relation_del') result = confirm('신청 정보를 모두 삭제 하시겠습니까?');
+
+                   if(result==1) $('#FUNC').submit();
+                   else return false;
+
+               });
+       });
+
+
+  </script>
+</html>
+
+
+
+</html>

@@ -27,7 +27,7 @@ router.post('/',function(req,res,next){
     var login_name=req.body.sname;
     var login_pwd=req.body.pwd;
 
-
+    console.log(login_id);
     //관리자는 페이지
     if(login_id=='kmucs'&login_name=='manager'&login_pwd=='kmucs')
     res.redirect('/manager');
