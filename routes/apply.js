@@ -116,7 +116,7 @@ router.get('/', function(req, res, next) {
         {
           //여기서부터 신청!! 1.사물함 use비트 변경 2.관계테이블에 추가
 
-          // 사물함 use비트 내리기 (새로신청하는 사물함 cabinet_apply)  2
+          // 사물함 use비트 확인 (새로신청하는 사물함 cabinet_apply)  2
           connection.query('SELECT * FROM cabinet_infos  WHERE CabinetNo = ? ' ,cabinet_apply,function(err,rows) {
 
             if (err) throw err;
@@ -137,11 +137,13 @@ router.get('/', function(req, res, next) {
 
               // relation instance insert작업
               connection.query('INSERT INTO Relation_Stu_Cab VALUES(?,?,?,?)' ,[studentID,cabinet_apply,studentName,studentGrade],function(err,rows) {
-                if (err) throw err; });
+                if (err) throw err;
+              });
+
 
                 if(modify==1) //변경 신청일 경우 기존에 있던 관계 지우고, 사물함 비트 올리기
                 {
-                  //사물함 현재 use비트 확인하고 1개 올리기! (변경하려전 old)
+                  //사물함 현재 use비트 확인하고 1개 올리기! (변경하기전 old)
                   connection.query('SELECT * FROM cabinet_infos  WHERE CabinetNo = ? ' ,cabinet_old,function(err,rows) {
 
                     if (err) throw err;
@@ -161,7 +163,7 @@ router.get('/', function(req, res, next) {
                         if (err) throw err;
                       });
 
-                      status=3;  // 캐비넷 반환한다. (성공)
+                      status=1;  // 캐비넷 반환한다. (성공)
                     }
 
                     else
@@ -171,7 +173,7 @@ router.get('/', function(req, res, next) {
                   if(status==4) throw err;
 
                   // relation instance delete작업
-                  connection.query('DELETE FROM Relation_Stu_Cab WHERE S_Id = ?' ,studentID,function(err,rows) {
+                  connection.query('DELETE FROM Relation_Stu_Cab WHERE S_Id = ? AND CabinetNo= ?' ,[studentID,cabinet_old],function(err,rows) {
                     if (err) throw err;  });
 
                   }
@@ -180,7 +182,6 @@ router.get('/', function(req, res, next) {
                   //작업완료! (get으로 다시보냄)
                   var sendMessage="/apply?"+"id="+studentID+"&name="+studentName+"&grade="+studentGrade+"&status="+status;
                   res.redirect(sendMessage);
-
 
 
                 }
@@ -193,7 +194,7 @@ router.get('/', function(req, res, next) {
                   res.redirect(sendMessage);
                 }
 
-              });   // 사물함 use비트 내리기 (새로신청하는 사물함 cabinet_apply)  2 쿼리안에 변수 사용끝
+              });   // 사물함 use비트 확인 (새로신청하는 사물함 cabinet_apply)  2 쿼리안에 변수 사용끝
 
             }// 신청가능 시간 or 불가능
 
