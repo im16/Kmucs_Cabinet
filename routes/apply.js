@@ -82,10 +82,10 @@ router.get('/', function(req, res, next) {
 
       });
 
-      connection.release(); }
+      }
+      connection.release();
     });
   });
-
 
   router.post('/',function(req,res,next){
 
@@ -104,61 +104,19 @@ router.get('/', function(req, res, next) {
     //현재 시간을 ms로 나타낸 변수
     var current_ms = Date.UTC(now.getFullYear(),now.getMonth(),now.getDay(),now.getHours(),now.getMinutes());
 
+    // console.log("확인"+studentID + " "+studentName+ " "+ studentGrade+" "+modify+" "+cabinet_old+" "+cabinet_apply+" ");
 
+    pool.getConnection(function (err, connection) {
 
-
-   // console.log("확인"+studentID + " "+studentName+ " "+ studentGrade+" "+modify+" "+cabinet_old+" "+cabinet_apply+" ");
-
-   pool.getConnection(function (err, connection) {
-
-	    //신청가능한 시간인가
+      //신청가능한 시간인가 1
       connection.query('SELECT * FROM possible_time',function(err,row){
-		      if(err) throw err;
+        if(err) throw err;
 
-          if(row[0].start_time<=current_ms&& current_ms<=row[0].end_time)
-		      {
-              if(modify==1) //변경
-              {
-          //사물함 현재 use비트 확인하고 1개 올리기! (변경하려전 old)
-                connection.query('SELECT * FROM cabinet_infos  WHERE CabinetNo = ? ' ,cabinet_old,function(err,rows) {
-
-                  if (err) throw err;
-
-                  var possible=rows[0].IsUse;
-
-
-                  //    console.log("캐비넷번호: "+ cabinet_old+" 현재값은"+possible);
-
-                    var avail_use=1;
-
-                    if(studentGrade==1)  avail_use=2;
-
-
-                    if(possible<avail_use)
-                    {
-                        possible+=1;
-                        connection.query('UPDATE cabinet_infos set IsUse= ? where CabinetNo=? ' ,[possible,cabinet_old],function(err,rows) {
-                        if (err) throw err;
-                        });
-
-                        status=3;  // 캐비넷 반환한다. (성공)
-                    }
-
-                    else
-                      status=4; // 에러
-                  });
-
-                  if(status==4) throw err;
-
-                  // relation instance delete작업
-                  connection.query('DELETE FROM Relation_Stu_Cab WHERE S_Id = ?' ,studentID,function(err,rows) {
-                    if (err) throw err;  });
-
-                }
-
+        if(row[0].start_time<=current_ms&& current_ms<=row[0].end_time)
+        {
           //여기서부터 신청!! 1.사물함 use비트 변경 2.관계테이블에 추가
 
-          // 사물함 use비트 내리기 (새로신청하는 사물함 cabinet_apply)
+          // 사물함 use비트 내리기 (새로신청하는 사물함 cabinet_apply)  2
           connection.query('SELECT * FROM cabinet_infos  WHERE CabinetNo = ? ' ,cabinet_apply,function(err,rows) {
 
             if (err) throw err;
@@ -179,37 +137,78 @@ router.get('/', function(req, res, next) {
 
               // relation instance insert작업
               connection.query('INSERT INTO Relation_Stu_Cab VALUES(?,?,?,?)' ,[studentID,cabinet_apply,studentName,studentGrade],function(err,rows) {
-                if (err){  status=4; throw err;}
+                if (err) throw err; });
 
-		console.log("학번:"+studentID+" 이름:"+studentName+" 사물함번호 :"+cabinet_apply+" 신청완료");
-                //작업완료! (get으로 다시보냄))
-                var sendMessage="/apply?"+"id="+studentID+"&name="+studentName+"&grade="+studentGrade+"&status="+status;
-                res.redirect(sendMessage);
-              });
+                if(modify==1) //변경 신청일 경우 기존에 있던 관계 지우고, 사물함 비트 올리기
+                {
+                  //사물함 현재 use비트 확인하고 1개 올리기! (변경하려전 old)
+                  connection.query('SELECT * FROM cabinet_infos  WHERE CabinetNo = ? ' ,cabinet_old,function(err,rows) {
 
-            }
+                    if (err) throw err;
 
-            else
-            {
-              status=2; // 그 사이에 이미 신청했다. 다시신청하도록!
+                    var possible=rows[0].IsUse;
+
+                    //    console.log("캐비넷번호: "+ cabinet_old+" 현재값은"+possible);
+                    var avail_use=1;
+
+                    if(studentGrade==1)  avail_use=2;
+
+
+                    if(possible<avail_use)
+                    {
+                      possible+=1;
+                      connection.query('UPDATE cabinet_infos set IsUse= ? where CabinetNo=? ' ,[possible,cabinet_old],function(err,rows) {
+                        if (err) throw err;
+                      });
+
+                      status=3;  // 캐비넷 반환한다. (성공)
+                    }
+
+                    else
+                    status=4; // 에러
+                  });
+
+                  if(status==4) throw err;
+
+                  // relation instance delete작업
+                  connection.query('DELETE FROM Relation_Stu_Cab WHERE S_Id = ?' ,studentID,function(err,rows) {
+                    if (err) throw err;  });
+
+                  }
+
+                  console.log("학번:"+studentID+" 이름:"+studentName+" 사물함번호 :"+cabinet_apply+" 신청완료");
+                  //작업완료! (get으로 다시보냄)
+                  var sendMessage="/apply?"+"id="+studentID+"&name="+studentName+"&grade="+studentGrade+"&status="+status;
+                  res.redirect(sendMessage);
+
+
+
+                }
+
+                else
+                {
+                  status=2; // 그 사이에 이미 신청했다. 다시신청하도록!
+                  var sendMessage="/apply?"+"id="+studentID+"&name="+studentName+"&grade="+studentGrade+"&status="+status;
+                  //     console.log("here");
+                  res.redirect(sendMessage);
+                }
+
+              });   // 사물함 use비트 내리기 (새로신청하는 사물함 cabinet_apply)  2 쿼리안에 변수 사용끝
+
+            }// 신청가능 시간 or 불가능
+
+
+            else{//신청 불가능한 시간이면
+              status=5;
               var sendMessage="/apply?"+"id="+studentID+"&name="+studentName+"&grade="+studentGrade+"&status="+status;
-         //     console.log("here");
               res.redirect(sendMessage);
             }
 
+            }); //신청가능한 시간인가 1 쿼리 사용끝
+    connection.release();
           });
 
-        }
-        else{//신청 불가능한 시간이면
-          status=5;
-          var sendMessage="/apply?"+"id="+studentID+"&name="+studentName+"&grade="+studentGrade+"&status="+status;
-          res.redirect(sendMessage);
-        }
-	  });
-	  connection.release();
-  });
-
-});
+        });
 
 
 
