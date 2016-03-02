@@ -78,7 +78,7 @@ router.post('/', function(req,res,next){
 			connection.query('DELETE FROM student_infos',function(err,rows){
 				if(err) throw err;
 				mss="학생정보 모두 삭제 성공";
-				res.render('manager',{message:mss,rel_info:info});
+				res.render('manager1',{message:mss,rel_info:info});
 			});
 		}
 		else if (func1=='relation_del') //관계 데이터 모두 삭제.
@@ -117,7 +117,7 @@ router.post('/', function(req,res,next){
 
 
         mss="관계정보 모두 삭제 성공"
-				res.render('manager',{message:mss,rel_info:info});
+				res.render('manager1',{message:mss,rel_info:info});
 				});
     });
 
