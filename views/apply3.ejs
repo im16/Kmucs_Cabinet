@@ -154,7 +154,7 @@
 					function(){
 
 						if($(this).hasClass("btn btn-success"))
-						{ var selected = $(this).val();
+						{ var selected = $(this).val().replace(/ /g, '');
 							var result= confirm(selected+" 신청하시겠습니까?");
 							$('[name= apply_cabinet]').val(selected);
 
@@ -233,8 +233,8 @@
 
       <tr>
 
-       <td><input type="button" name="cabinet" id="C1" value="C1"/></td>
-       <td><input type="button" name="cabinet" id="C2" value="C2"/></td>
+       <td><input type="button" name="cabinet" id="C1" value="C 1"/></td>
+       <td><input type="button" name="cabinet" id="C2" value="C 2"/></td>
        <td><input type="button" name="cabinet" id="C11" value="C11"/></td>
        <td><input type="button" name="cabinet" id="C12" value="C12"/></td>
        <td><input type="button" name="cabinet" id="C21" value="C21"/></td>
@@ -257,8 +257,8 @@
        </tr>
 
        <tr>
-         <td><input type="button" name="cabinet" id="C3" value="C3"/></td>
-         <td><input type="button" name="cabinet" id="C4" value="C4"/></td>
+         <td><input type="button" name="cabinet" id="C3" value="C 3"/></td>
+         <td><input type="button" name="cabinet" id="C4" value="C 4"/></td>
          <td><input type="button" name="cabinet" id="C13" value="C13"/></td>
          <td><input type="button" name="cabinet" id="C14" value="C14"/></td>
          <td><input type="button" name="cabinet" id="C23" value="C23"/></td>
@@ -280,8 +280,8 @@
       </tr>
 
        <tr>
-         <td><input type="button" name="cabinet" id="C5" value="C5"/></td>
-         <td><input type="button" name="cabinet" id="C6" value="C6"/></td>
+         <td><input type="button" name="cabinet" id="C5" value="C 5"/></td>
+         <td><input type="button" name="cabinet" id="C6" value="C 6"/></td>
          <td><input type="button" name="cabinet" id="C15" value="C15"/></td>
          <td><input type="button" name="cabinet" id="C16" value="C16"/></td>
          <td><input type="button" name="cabinet" id="C25" value="C25"/></td>
@@ -302,8 +302,8 @@
          <td><input type="button" name="cabinet" id="C96" value="C96"/></td>
          </tr>
      <tr>
-       <td><input type="button" name="cabinet" id="C7" value="C7"/></td>
-       <td><input type="button" name="cabinet" id="C8" value="C8"/></td>
+       <td><input type="button" name="cabinet" id="C7" value="C 7"/></td>
+       <td><input type="button" name="cabinet" id="C8" value="C 8"/></td>
        <td><input type="button" name="cabinet" id="C17" value="C17"/></td>
        <td><input type="button" name="cabinet" id="C18" value="C18"/></td>
        <td><input type="button" name="cabinet" id="C27" value="C27"/></td>
@@ -325,7 +325,7 @@
 
    </tr>
    <tr>
-     <td><input type="button" name="cabinet" id="C9" value="C9"/></td>
+     <td><input type="button" name="cabinet" id="C9" value="C 9"/></td>
      <td><input type="button" name="cabinet" id="C10" value="C10"/></td>
      <td><input type="button" name="cabinet" id="C19" value="C19"/></td>
      <td><input type="button" name="cabinet" id="C20" value="C20"/></td>

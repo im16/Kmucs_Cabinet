@@ -85,7 +85,7 @@ router.post('/',function(req,res,next){
         }
         //일치하는 정보가 없으면이리로 온다
         else
-       	  { 
+       	  {
 	   message="일치하는 학생정보가 없습니다.";
 	   res.render('login', {title: 'test', ee:message});
 	  }
@@ -94,7 +94,7 @@ router.post('/',function(req,res,next){
       });
     }
 
-	 connection.release();	
+	 connection.release();
 
   });
 });

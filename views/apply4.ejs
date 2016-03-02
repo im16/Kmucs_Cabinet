@@ -152,7 +152,7 @@
 					function(){
 
 						if($(this).hasClass("btn btn-success"))
-						{ var selected = $(this).val();
+						{ var selected = $(this).val().replace(/ /g, '');
 							var result= confirm(selected+" 신청하시겠습니까?");
 							$('[name= apply_cabinet]').val(selected);
 
